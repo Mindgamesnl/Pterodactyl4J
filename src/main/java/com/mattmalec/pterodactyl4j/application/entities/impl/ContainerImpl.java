@@ -34,7 +34,9 @@ public class ContainerImpl implements Container {
     public Map<String, String> getEnvironment() {
         JSONObject environment = json.getJSONObject("environment");
         HashMap<String, String> environmentMap = new HashMap<>();
-        environment.keys().forEachRemaining(s -> environmentMap.putIfAbsent(s, environment.getString(s)));
+        environment.keys().forEachRemaining(s -> {
+            environmentMap.putIfAbsent(s, environment.get(s) + "");
+        });
         return Collections.unmodifiableMap(environmentMap);
     }
 }
